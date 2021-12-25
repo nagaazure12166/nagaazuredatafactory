@@ -1,0 +1,33 @@
+{
+	"name": "DS_Synapse_nagadwhserver",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_nagadwhserver",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "EMPID",
+				"type": "varchar"
+			},
+			{
+				"name": "Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Salary",
+				"type": "varchar"
+			},
+			{
+				"name": "Addess",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EMPPF"
+		}
+	}
+}
