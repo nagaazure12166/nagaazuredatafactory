@@ -28,12 +28,14 @@
 					},
 					"sink": {
 						"type": "SqlDWSink",
+						"preCopyScript": "truncate table dbo.EMP1PF",
 						"allowPolyBase": true,
 						"polyBaseSettings": {
 							"rejectValue": 0,
 							"rejectType": "value",
 							"useTypeDefault": true
-						}
+						},
+						"disableMetricsCollection": false
 					},
 					"enableStaging": true,
 					"stagingSettings": {
