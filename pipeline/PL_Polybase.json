@@ -43,6 +43,20 @@
 						},
 						"path": "adls2021gen2"
 					},
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "LS_ADLS_nagaadlsgen2",
+								"type": "LinkedServiceReference"
+							},
+							"path": "logs"
+						}
+					},
 					"translator": {
 						"type": "TabularTranslator",
 						"mappings": [
