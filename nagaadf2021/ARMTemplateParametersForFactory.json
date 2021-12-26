@@ -13,6 +13,9 @@
 		},
 		"LS_ADLS_nagaadlsgen2_properties_typeProperties_url": {
 			"value": "https://nagaadlsgen2.dfs.core.windows.net"
+		},
+		"Even based trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/8240e0bb-94c8-4b1c-934d-2e3da145740d/resourceGroups/nagarg2021/providers/Microsoft.Storage/storageAccounts/nagaadlsgen2"
 		}
 	}
 }
