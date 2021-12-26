@@ -1,0 +1,24 @@
+{
+	"name": "Even based trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_Wait",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/destination/blobs/",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/8240e0bb-94c8-4b1c-934d-2e3da145740d/resourceGroups/nagarg2021/providers/Microsoft.Storage/storageAccounts/nagaadlsgen2",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
