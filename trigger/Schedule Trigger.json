@@ -1,0 +1,24 @@
+{
+	"name": "Schedule Trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "PL_Wait",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 1,
+				"startTime": "2021-12-26T20:56:00",
+				"timeZone": "Romance Standard Time"
+			}
+		}
+	}
+}
