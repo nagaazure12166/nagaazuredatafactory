@@ -25,11 +25,11 @@
 		},
 		"TumblingTrigger_properties_pipeline_parameters_StartTime": {
 			"type": "string",
-			"defaultValue": "@trigger.outputs.windowStartTime"
+			"defaultValue": "@trigger().outputs.windowStartTime"
 		},
 		"TumblingTrigger_properties_pipeline_parameters_EndTime": {
 			"type": "string",
-			"defaultValue": "@trigger.outputs.windowEndTime"
+			"defaultValue": "@trigger().outputs.windowEndTime"
 		}
 	},
 	"variables": {
