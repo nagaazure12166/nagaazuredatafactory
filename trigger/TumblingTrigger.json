@@ -3,16 +3,6 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Stopped",
-		"pipeline": {
-			"pipelineReference": {
-				"referenceName": "PL_Thumblingtest",
-				"type": "PipelineReference"
-			},
-			"parameters": {
-				"StartTime": "@trigger().outputs.windowStartTime",
-				"EndTime": "@trigger().outputs.windowEndTime"
-			}
-		},
 		"type": "TumblingWindowTrigger",
 		"typeProperties": {
 			"frequency": "Minute",
