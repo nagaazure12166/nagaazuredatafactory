@@ -99,6 +99,14 @@
 				]
 			}
 		],
+		"parameters": {
+			"StartTime": {
+				"type": "string"
+			},
+			"EndTime": {
+				"type": "string"
+			}
+		},
 		"annotations": []
 	}
 }
