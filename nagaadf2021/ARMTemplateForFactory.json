@@ -22,14 +22,6 @@
 		"Even based trigger_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/8240e0bb-94c8-4b1c-934d-2e3da145740d/resourceGroups/nagarg2021/providers/Microsoft.Storage/storageAccounts/nagaadlsgen2"
-		},
-		"Tumbling Trigger_properties_pipeline_parameters_StartTime": {
-			"type": "string",
-			"defaultValue": "@trigger().outputs.windowStartTime"
-		},
-		"Tumbling Trigger_properties_pipeline_parameters_EndTime": {
-			"type": "string",
-			"defaultValue": "@trigger().outputs.windowEndTime"
 		}
 	},
 	"variables": {
@@ -555,63 +547,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_nagadwhserver')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Tumbling Trigger_1')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Stopped",
-				"type": "TumblingWindowTrigger",
-				"typeProperties": {
-					"frequency": "Minute",
-					"interval": 15,
-					"startTime": "2021-02-25T05:15:00Z",
-					"delay": "00:00:00",
-					"maxConcurrency": 1,
-					"retryPolicy": {
-						"intervalInSeconds": 30
-					},
-					"dependsOn": []
-				}
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Tumbling Trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipeline": {
-					"pipelineReference": {
-						"referenceName": "PL_Thumblingtest",
-						"type": "PipelineReference"
-					},
-					"parameters": {
-						"StartTime": "[parameters('Tumbling Trigger_properties_pipeline_parameters_StartTime')]",
-						"EndTime": "[parameters('Tumbling Trigger_properties_pipeline_parameters_EndTime')]"
-					}
-				},
-				"type": "TumblingWindowTrigger",
-				"typeProperties": {
-					"frequency": "Minute",
-					"interval": 15,
-					"startTime": "2021-02-24T23:59:00Z",
-					"endTime": "2021-02-25T13:30:00Z",
-					"delay": "00:00:00",
-					"maxConcurrency": 1,
-					"retryPolicy": {
-						"intervalInSeconds": 30
-					},
-					"dependsOn": []
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_Thumblingtest')]"
 			]
 		}
 	]

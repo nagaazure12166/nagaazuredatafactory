@@ -16,12 +16,6 @@
 		},
 		"Even based trigger_properties_typeProperties_scope": {
 			"value": "/subscriptions/8240e0bb-94c8-4b1c-934d-2e3da145740d/resourceGroups/nagarg2021/providers/Microsoft.Storage/storageAccounts/nagaadlsgen2"
-		},
-		"Tumbling Trigger_properties_pipeline_parameters_StartTime": {
-			"value": "@trigger().outputs.windowStartTime"
-		},
-		"Tumbling Trigger_properties_pipeline_parameters_EndTime": {
-			"value": "@trigger().outputs.windowEndTime"
 		}
 	}
 }
