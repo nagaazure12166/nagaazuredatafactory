@@ -17,7 +17,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlDWSource",
-						"sqlReaderQuery": "Select * from Source_EMP where Insert_date >= \n‘@{formatDateTime(pipeline().parameters.StartTime,’yyyy-MM-dd HH-mm-ss’)}’ \nand Insert_date < ‘@{formatDateTime(pipeline().parameters.StartTime,’yyyy-MM-dd HH-mm-ss’)}’ \n",
+						"sqlReaderQuery": "Select * from Source_EMP where Insert_date >= \n‘@{formatDateTime(pipeline().parameters.StartTime,’yyyy-MM-dd HH-mm-ss’)}’ \nand Insert_date < ‘@{formatDateTime(pipeline().parameters.EndTime,’yyyy-MM-dd HH-mm-ss’)}’ \n",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
