@@ -19,7 +19,7 @@
 			"interval": 5,
 			"startTime": "2021-02-25T11:40:00Z",
 			"delay": "00:00:00",
-			"maxConcurrency": 50,
+			"maxConcurrency": 1,
 			"retryPolicy": {
 				"intervalInSeconds": 30
 			},
