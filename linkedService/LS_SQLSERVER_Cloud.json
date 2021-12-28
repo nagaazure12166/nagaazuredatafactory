@@ -1,0 +1,16 @@
+{
+	"name": "LS_SQLSERVER_Cloud",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=nagaserver2021.database.windows.net;initial catalog=EDU;user id=naga",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIxNTc2ODg4YS02OWZkLTRiYjEtYWM5Yi05MTE1YWE2ZmQ1MjMiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "Self-Hosted",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
