@@ -1,0 +1,16 @@
+{
+	"name": "LS_SQLServer_OnPremise",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "integrated security=False;data source=MSI\\MSSQLSERVER1;initial catalog=EDU;user id=naga",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI5YmExM2FmNC01MTQ4LTRkODMtODk4OS04OTc0OGZhZjg5ZDUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "Self-Hosted",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
