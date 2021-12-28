@@ -1,0 +1,36 @@
+{
+	"name": "DS_SQLSERVER_Cloud",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLSERVER_Cloud",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EName",
+				"type": "varchar"
+			},
+			{
+				"name": "Salary",
+				"type": "varchar"
+			},
+			{
+				"name": "Insert_date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Dest_EMP"
+		}
+	}
+}
