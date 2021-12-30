@@ -107,8 +107,19 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [],
+				"userProperties": []
 			}
 		],
+		"variables": {
+			"PipelineName": {
+				"type": "String"
+			}
+		},
 		"annotations": []
 	}
 }
