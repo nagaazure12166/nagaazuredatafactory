@@ -17,7 +17,32 @@
 				"typeProperties": {
 					"source": {
 						"type": "SqlServerSource",
-						"sqlReaderQuery": "select max(Modifieddate) as latestdate from Source_EMPPF",
+						"sqlReaderQuery": "select max(Modifieddate) as maxdate from Source_EMPPF",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "DS_SQLServer_Onpremise",
+						"type": "DatasetReference"
+					}
+				}
+			},
+			{
+				"name": "Lookup_Trackdate",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select TabName,  Latestdate from Trackdate",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
