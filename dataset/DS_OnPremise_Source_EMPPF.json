@@ -1,0 +1,37 @@
+{
+	"name": "DS_OnPremise_Source_EMPPF",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLServer_OnPremise",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "varchar"
+			},
+			{
+				"name": "EName",
+				"type": "varchar"
+			},
+			{
+				"name": "EAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "ESalary",
+				"type": "varchar"
+			},
+			{
+				"name": "Modifieddate",
+				"type": "date"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Source_EMPPF"
+		}
+	}
+}
