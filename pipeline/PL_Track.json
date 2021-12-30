@@ -118,6 +118,15 @@
 		"variables": {
 			"PipelineName": {
 				"type": "String"
+			},
+			"PipelineDate": {
+				"type": "String"
+			},
+			"Satus_Success": {
+				"type": "String"
+			},
+			"Status_Failure": {
+				"type": "String"
 			}
 		},
 		"annotations": []
