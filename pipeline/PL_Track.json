@@ -5,7 +5,14 @@
 			{
 				"name": "Copy data1",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Pipeline Name",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -109,10 +116,17 @@
 				]
 			},
 			{
-				"name": "Set variable1",
+				"name": "Pipeline Name",
 				"type": "SetVariable",
 				"dependsOn": [],
-				"userProperties": []
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "PipelineName",
+					"value": {
+						"value": "@pipeline().Pipeline",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"variables": {
@@ -123,10 +137,12 @@
 				"type": "String"
 			},
 			"Satus_Success": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "Success"
 			},
 			"Status_Failure": {
-				"type": "String"
+				"type": "String",
+				"defaultValue": "Failed"
 			}
 		},
 		"annotations": []
