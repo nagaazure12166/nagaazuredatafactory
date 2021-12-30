@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Copy data1",
-				"type": "Copy",
+				"name": "Lookup1",
+				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
@@ -16,85 +16,16 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "AzureSqlSource",
+						"type": "SqlServerSource",
+						"sqlReaderQuery": "select max(Modifieddate) as latestdate from Source_EMPPF",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
-					"sink": {
-						"type": "AzureSqlSink"
-					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"name": "ID",
-									"type": "Int32",
-									"physicalType": "int"
-								},
-								"sink": {
-									"name": "ID",
-									"type": "Int32",
-									"physicalType": "int"
-								}
-							},
-							{
-								"source": {
-									"name": "EName",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "EName",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Salary",
-									"type": "String",
-									"physicalType": "varchar"
-								},
-								"sink": {
-									"name": "Salary",
-									"type": "String",
-									"physicalType": "varchar"
-								}
-							},
-							{
-								"source": {
-									"name": "Insert_date",
-									"type": "DateTime",
-									"physicalType": "datetime"
-								},
-								"sink": {
-									"name": "Insert_date",
-									"type": "DateTime",
-									"physicalType": "datetime"
-								}
-							}
-						],
-						"typeConversion": true,
-						"typeConversionSettings": {
-							"allowDataTruncation": true,
-							"treatBooleanAsNumber": false
-						}
-					}
-				},
-				"inputs": [
-					{
-						"referenceName": "DS_SQLSERVER_Cloud1",
+					"dataset": {
+						"referenceName": "DS_SQLServer_Onpremise",
 						"type": "DatasetReference"
 					}
-				],
-				"outputs": [
-					{
-						"referenceName": "DS_SQLSERVER_Cloud",
-						"type": "DatasetReference"
-					}
-				]
+				}
 			}
 		],
 		"annotations": []
