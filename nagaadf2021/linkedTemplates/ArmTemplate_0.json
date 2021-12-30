@@ -11,9 +11,21 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_ADLS_nagaadlsgen2'"
 		},
+		"LS_SQLSERVER_Cloud_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLSERVER_Cloud'"
+		},
 		"LS_nagadwhserver_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_nagadwhserver'"
+		},
+		"LS_SQLServer_OnPremise_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLServer_OnPremise'"
+		},
+		"LS_Synapse_Cloud_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_Synapse_Cloud'"
 		},
 		"LS_ADLS_nagaadlsgen2_properties_typeProperties_url": {
 			"type": "string",
@@ -22,14 +34,6 @@
 		"Even based trigger_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/8240e0bb-94c8-4b1c-934d-2e3da145740d/resourceGroups/nagarg2021/providers/Microsoft.Storage/storageAccounts/nagaadlsgen2"
-		},
-		"Tumbling Trigger_1_properties_pipeline_parameters_StartTime": {
-			"type": "string",
-			"defaultValue": "@trigger().outputs.windowStartTime"
-		},
-		"Tumbling Trigger_1_properties_pipeline_parameters_EndTime": {
-			"type": "string",
-			"defaultValue": "@trigger().outputs.windowEndTime"
 		}
 	},
 	"variables": {
@@ -102,6 +106,19 @@
 			"dependsOn": []
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/LS_SQLSERVER_Cloud')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_SQLSERVER_Cloud_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LS_nagadwhserver')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -111,6 +128,16 @@
 				"typeProperties": {
 					"connectionString": "[parameters('LS_nagadwhserver_connectionString')]"
 				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Self-Hosted')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
 			},
 			"dependsOn": []
 		},
@@ -147,7 +174,89 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_Synapse_nagadwhserver')]",
+			"name": "[concat(parameters('factoryName'), '/DS_SQLSERVER_Cloud')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQLSERVER_Cloud",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "EName",
+						"type": "varchar"
+					},
+					{
+						"name": "Salary",
+						"type": "varchar"
+					},
+					{
+						"name": "Insert_date",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Dest_EMP"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLSERVER_Cloud')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_SQLSERVER_Cloud1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQLSERVER_Cloud",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "EName",
+						"type": "varchar"
+					},
+					{
+						"name": "Salary",
+						"type": "varchar"
+					},
+					{
+						"name": "Insert_date",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Source_EMP"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLSERVER_Cloud')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Synapse_DestEMP')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -159,11 +268,12 @@
 				"type": "AzureSqlDWTable",
 				"schema": [
 					{
-						"name": "EMPID",
-						"type": "varchar"
+						"name": "ID",
+						"type": "int",
+						"precision": 10
 					},
 					{
-						"name": "Name",
+						"name": "EName",
 						"type": "varchar"
 					},
 					{
@@ -171,47 +281,19 @@
 						"type": "varchar"
 					},
 					{
-						"name": "Addess",
-						"type": "varchar"
+						"name": "Insert_date",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
 					}
 				],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "EMP1PF"
+					"table": "Dest_EMP"
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_nagadwhserver')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/Even based trigger')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipelines": [
-					{
-						"pipelineReference": {
-							"referenceName": "PL_Wait",
-							"type": "PipelineReference"
-						},
-						"parameters": {}
-					}
-				],
-				"type": "BlobEventsTrigger",
-				"typeProperties": {
-					"blobPathBeginsWith": "/destination/blobs/",
-					"ignoreEmptyBlobs": true,
-					"scope": "[parameters('Even based trigger_properties_typeProperties_scope')]",
-					"events": [
-						"Microsoft.Storage.BlobCreated"
-					]
-				}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_Wait')]"
 			]
 		},
 		{
@@ -256,7 +338,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/DS_Synapse_DestEMP')]",
+			"name": "[concat(parameters('factoryName'), '/DS_Synapse_nagadwhserver')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -268,12 +350,11 @@
 				"type": "AzureSqlDWTable",
 				"schema": [
 					{
-						"name": "ID",
-						"type": "int",
-						"precision": 10
+						"name": "EMPID",
+						"type": "varchar"
 					},
 					{
-						"name": "EName",
+						"name": "Name",
 						"type": "varchar"
 					},
 					{
@@ -281,19 +362,85 @@
 						"type": "varchar"
 					},
 					{
-						"name": "Insert_date",
-						"type": "datetime",
-						"precision": 23,
-						"scale": 3
+						"name": "Addess",
+						"type": "varchar"
 					}
 				],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "Dest_EMP"
+					"table": "EMP1PF"
 				}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_nagadwhserver')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SQLServer_OnPremise')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "SqlServer",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_SQLServer_OnPremise_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "Self-Hosted",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/Self-Hosted')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_Synapse_Cloud')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDW",
+				"typeProperties": {
+					"connectionString": "[parameters('LS_Synapse_Cloud_connectionString')]"
+				},
+				"connectVia": {
+					"referenceName": "Self-Hosted",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/Self-Hosted')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Even based trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "PL_Wait",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/destination/blobs/",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('Even based trigger_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/PL_Wait')]"
 			]
 		},
 		{
@@ -454,13 +601,15 @@
 						"typeProperties": {
 							"source": {
 								"type": "SqlDWSource",
-								"sqlReaderQuery": "select * from Source_EMP where Insert_date >= \n'@{formatDateTime(pipeline().parameters.StartTime,'yyyy-MM-dd HH:mm:ss')}' \nand Insert_date < '@{formatDateTime(pipeline().parameters.EndTime,'yyyy-MM-dd HH:mm:ss')}'",
+								"sqlReaderQuery": {
+									"value": "select * from Source_EMP where Insert_date >= \n'@{formatDateTime(pipeline().parameters.StartTime,'yyyy-MM-dd HH:mm:ss')}' \nand Insert_date < '@{formatDateTime(pipeline().parameters.EndTime,'yyyy-MM-dd HH:mm:ss')}'",
+									"type": "Expression"
+								},
 								"queryTimeout": "02:00:00",
 								"partitionOption": "None"
 							},
 							"sink": {
-								"type": "SqlDWSink",
-								"sqlWriterUseTableLock": false
+								"type": "SqlDWSink"
 							},
 							"enableStaging": false,
 							"translator": {
@@ -558,38 +707,128 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Tumbling Trigger_1')]",
-			"type": "Microsoft.DataFactory/factories/triggers",
+			"name": "[concat(parameters('factoryName'), '/DS_SQLServer_Onpremise')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
-				"annotations": [],
-				"runtimeState": "Started",
-				"pipeline": {
-					"pipelineReference": {
-						"referenceName": "PL_Thumblingtest",
-						"type": "PipelineReference"
-					},
-					"parameters": {
-						"StartTime": "[parameters('Tumbling Trigger_1_properties_pipeline_parameters_StartTime')]",
-						"EndTime": "[parameters('Tumbling Trigger_1_properties_pipeline_parameters_EndTime')]"
-					}
+				"linkedServiceName": {
+					"referenceName": "LS_SQLServer_OnPremise",
+					"type": "LinkedServiceReference"
 				},
-				"type": "TumblingWindowTrigger",
-				"typeProperties": {
-					"frequency": "Minute",
-					"interval": 15,
-					"startTime": "2021-02-24T22:36:00Z",
-					"endTime": "2021-02-25T13:36:00Z",
-					"delay": "00:00:00",
-					"maxConcurrency": 1,
-					"retryPolicy": {
-						"intervalInSeconds": 30
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "int",
+						"precision": 10
 					},
-					"dependsOn": []
+					{
+						"name": "EName",
+						"type": "varchar"
+					},
+					{
+						"name": "Salary",
+						"type": "varchar"
+					},
+					{
+						"name": "Insert_date",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Source_EMP"
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/PL_Thumblingtest')]"
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLServer_OnPremise')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_OnPremise_Source_EMPPF')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQLServer_OnPremise",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "varchar"
+					},
+					{
+						"name": "EName",
+						"type": "varchar"
+					},
+					{
+						"name": "EAddress",
+						"type": "varchar"
+					},
+					{
+						"name": "ESalary",
+						"type": "varchar"
+					},
+					{
+						"name": "Modifieddate",
+						"type": "date"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Source_EMPPF"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLServer_OnPremise')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_OnPremise_Dest_EMPPF')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_SQLServer_OnPremise",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SqlServerTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "varchar"
+					},
+					{
+						"name": "EName",
+						"type": "varchar"
+					},
+					{
+						"name": "EAddress",
+						"type": "varchar"
+					},
+					{
+						"name": "ESalary",
+						"type": "varchar"
+					},
+					{
+						"name": "Modifieddate",
+						"type": "date"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "Dest_EMPPF"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/LS_SQLServer_OnPremise')]"
 			]
 		}
 	]

@@ -11,6 +11,18 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'LS_ADLS_nagaadlsgen2'"
 		},
+		"LS_SQLSERVER_Cloud_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLSERVER_Cloud'"
+		},
+		"LS_SQLServer_OnPremise_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_SQLServer_OnPremise'"
+		},
+		"LS_Synapse_Cloud_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'LS_Synapse_Cloud'"
+		},
 		"LS_nagadwhserver_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'LS_nagadwhserver'"
@@ -61,14 +73,41 @@
 					"LS_ADLS_nagaadlsgen2_accountKey": {
 						"value": "[parameters('LS_ADLS_nagaadlsgen2_accountKey')]"
 					},
+					"LS_SQLSERVER_Cloud_connectionString": {
+						"value": "[parameters('LS_SQLSERVER_Cloud_connectionString')]"
+					},
 					"LS_nagadwhserver_connectionString": {
 						"value": "[parameters('LS_nagadwhserver_connectionString')]"
+					},
+					"LS_SQLServer_OnPremise_connectionString": {
+						"value": "[parameters('LS_SQLServer_OnPremise_connectionString')]"
+					},
+					"LS_Synapse_Cloud_connectionString": {
+						"value": "[parameters('LS_Synapse_Cloud_connectionString')]"
 					},
 					"LS_ADLS_nagaadlsgen2_properties_typeProperties_url": {
 						"value": "[parameters('LS_ADLS_nagaadlsgen2_properties_typeProperties_url')]"
 					},
 					"Even based trigger_properties_typeProperties_scope": {
 						"value": "[parameters('Even based trigger_properties_typeProperties_scope')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "nagaadf2021_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
 					},
 					"Tumbling Trigger_1_properties_pipeline_parameters_StartTime": {
 						"value": "[parameters('Tumbling Trigger_1_properties_pipeline_parameters_StartTime')]"
@@ -78,7 +117,9 @@
 					}
 				}
 			},
-			"dependsOn": []
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'nagaadf2021_ArmTemplate_0')]"
+			]
 		}
 	]
 }

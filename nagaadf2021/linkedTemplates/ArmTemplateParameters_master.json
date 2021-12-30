@@ -8,6 +8,15 @@
 		"LS_ADLS_nagaadlsgen2_accountKey": {
 			"value": ""
 		},
+		"LS_SQLSERVER_Cloud_connectionString": {
+			"value": ""
+		},
+		"LS_SQLServer_OnPremise_connectionString": {
+			"value": ""
+		},
+		"LS_Synapse_Cloud_connectionString": {
+			"value": ""
+		},
 		"LS_nagadwhserver_connectionString": {
 			"value": ""
 		},
