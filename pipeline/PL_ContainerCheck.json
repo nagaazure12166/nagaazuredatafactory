@@ -45,7 +45,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@greaterOrEquals(activity('Get Metadata1').output.lastModified,utcnow())",
+						"value": "@lessOrEquals(activity('Get Metadata1').output.lastModified,utcnow())",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
