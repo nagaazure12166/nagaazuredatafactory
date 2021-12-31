@@ -108,7 +108,10 @@
 				"inputs": [
 					{
 						"referenceName": "DS_ADLS_Emp",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"ContainerName": "raw"
+						}
 					}
 				],
 				"outputs": [
