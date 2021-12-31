@@ -20,7 +20,7 @@
 						"type": "DatasetReference"
 					},
 					"fieldList": [
-						"lastModified"
+						"exists"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
@@ -45,7 +45,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "@lessOrEquals(activity('Get Metadata1').output.lastModified,utcnow())",
+						"value": "@equals(activity('Get Metadata1').output.exists,true)",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
