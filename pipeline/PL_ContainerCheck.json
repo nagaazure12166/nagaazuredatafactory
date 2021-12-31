@@ -172,6 +172,12 @@
 				}
 			}
 		],
+		"parameters": {
+			"containername": {
+				"type": "string",
+				"defaultValue": "raw"
+			}
+		},
 		"annotations": []
 	}
 }
