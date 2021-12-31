@@ -17,7 +17,13 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "DS_ADLS_Emp",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"ContainerName": {
+								"value": "@pipeline().parameters.containername",
+								"type": "Expression"
+							}
+						}
 					},
 					"fieldList": [
 						"exists"
@@ -158,7 +164,13 @@
 							"inputs": [
 								{
 									"referenceName": "DS_ADLS_Emp",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"ContainerName": {
+											"value": "@pipeline().parameters.containername",
+											"type": "Expression"
+										}
+									}
 								}
 							],
 							"outputs": [
