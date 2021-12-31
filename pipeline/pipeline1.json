@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata1",
-				"type": "GetMetadata",
+				"name": "Delete1",
+				"type": "Delete",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "7.00:00:00",
@@ -17,17 +17,28 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "DS_ADLS_Emp",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"ContainerName": "raw"
+						}
 					},
-					"fieldList": [
-						"lastModified"
-					],
+					"logStorageSettings": {
+						"linkedServiceName": {
+							"referenceName": "LS_ADLS_nagaadlsgen2",
+							"type": "LinkedServiceReference"
+						},
+						"path": "logs"
+					},
+					"enableLogging": true,
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
+						"modifiedDatetimeStart": "2021-12-31T00:00:00.000Z",
+						"modifiedDatetimeEnd": {
+							"value": "@utcnow()",
+							"type": "Expression"
+						},
 						"enablePartitionDiscovery": false
-					},
-					"formatSettings": {
-						"type": "DelimitedTextReadSettings"
 					}
 				}
 			}
