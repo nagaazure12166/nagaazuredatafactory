@@ -45,7 +45,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "\n@greater(activity('Get Metadata1').output.Last modified,utcnow())",
+						"value": "@greater(activity('Get Metadata1').output.lastModified,utcnow())",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
