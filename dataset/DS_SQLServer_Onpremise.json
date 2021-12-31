@@ -30,7 +30,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "Source_EMP"
+			"table": "Test_EMP"
 		}
 	}
 }
