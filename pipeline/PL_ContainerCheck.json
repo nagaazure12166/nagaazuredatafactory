@@ -48,6 +48,17 @@
 						"value": "@equals(activity('Get Metadata1').output.exists,true)",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "Wait1",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 10
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "Copy data1",
