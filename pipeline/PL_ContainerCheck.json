@@ -45,7 +45,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"expression": {
-						"value": "\n@equals(activity('Get Metadata1').output.exists,true)",
+						"value": "\n@greater(activity('Get Metadata1').output.Last modified,utcnow())",
 						"type": "Expression"
 					},
 					"ifFalseActivities": [
