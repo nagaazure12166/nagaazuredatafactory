@@ -12,13 +12,21 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_SQLSERVER_Cloud_Test_DestEMP",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "DerivedColumn1"
 				}
 			],
-			"script": "source(output(\n\t\tEID as short,\n\t\tEName as string,\n\t\tESalary as short,\n\t\tEAddress as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> source1\nsource1 derive(Insert_date = currentTimestamp(),\n\t\tAmount = ESalary,\n\t\tUpper_Name = upper(EName)) ~> DerivedColumn1"
+			"script": "source(output(\n\t\tEID as short,\n\t\tEName as string,\n\t\tESalary as short,\n\t\tEAddress as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> source1\nsource1 derive(Insert_date = currentTimestamp(),\n\t\tAmount = ESalary,\n\t\tUpper_Name = upper(EName)) ~> DerivedColumn1\nDerivedColumn1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tEID as string,\n\t\tEName as string,\n\t\tESalary as string,\n\t\tEAddress as string,\n\t\tUpper_Name as string,\n\t\tSalary_1 as integer,\n\t\tInsert_date as timestamp\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError',\n\tmapColumn(\n\t\tEID,\n\t\tEName,\n\t\tESalary,\n\t\tEAddress,\n\t\tUpper_Name,\n\t\tSalary_1 = Amount,\n\t\tInsert_date\n\t),\n\tpartitionBy('hash', 1)) ~> sink1"
 		}
 	}
 }
