@@ -12,13 +12,21 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADLS_Destination",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "insertdate"
 				}
 			],
-			"script": "source(output(\n\t\tEID as short,\n\t\tEName as string,\n\t\tESalary as short,\n\t\tEAddress as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> source1\nsource1 derive(Insert_date = currentTimestamp(),\n\tpartitionBy('hash', 1)) ~> insertdate"
+			"script": "source(output(\n\t\tEID as short,\n\t\tEName as string,\n\t\tESalary as short,\n\t\tEAddress as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> source1\nsource1 derive(Insert_date = currentTimestamp(),\n\tpartitionBy('hash', 1)) ~> insertdate\ninsertdate sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:[''],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tEID,\n\t\tEName,\n\t\tESalary,\n\t\tEAddress,\n\t\tInsert_date\n\t),\n\tpartitionBy('hash', 1)) ~> sink1"
 		}
 	}
 }
