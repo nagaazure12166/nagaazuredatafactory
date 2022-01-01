@@ -1,0 +1,24 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADLS_ALL",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "DerivedColumn1"
+				}
+			],
+			"script": "source(output(\n\t\tEID as short,\n\t\tEName as string,\n\t\tESalary as short,\n\t\tEAddress as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> source1\nsource1 derive(Insert_date = currentTimestamp(),\n\t\tAmount = ESalary,\n\t\tUpper_Name = upper(EName)) ~> DerivedColumn1"
+		}
+	}
+}
