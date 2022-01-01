@@ -1,0 +1,48 @@
+{
+	"name": "DS_SQLSERVER_Cloud_Test_DestEMP",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLSERVER_Cloud",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EID",
+				"type": "varchar"
+			},
+			{
+				"name": "EName",
+				"type": "varchar"
+			},
+			{
+				"name": "ESalary",
+				"type": "varchar"
+			},
+			{
+				"name": "EAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "Upper_Name",
+				"type": "varchar"
+			},
+			{
+				"name": "Salary_1",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "Insert_date",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Test_DestEMP"
+		}
+	}
+}
