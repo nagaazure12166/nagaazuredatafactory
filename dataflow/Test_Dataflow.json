@@ -13,8 +13,12 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
-			"script": "source(output(\n\t\t{EID|EName|ESalary|EAddress} as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1"
+			"transformations": [
+				{
+					"name": "insertdate"
+				}
+			],
+			"script": "source(output(\n\t\tEID as short,\n\t\tEName as string,\n\t\tESalary as short,\n\t\tEAddress as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tpartitionBy('hash', 1)) ~> source1\nsource1 derive(Insert_date = currentTimestamp(),\n\tpartitionBy('hash', 1)) ~> insertdate"
 		}
 	}
 }
