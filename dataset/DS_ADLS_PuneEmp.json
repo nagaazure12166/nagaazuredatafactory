@@ -20,7 +20,27 @@
 		},
 		"schema": [
 			{
-				"name": "EID|EName|ESalary|EAddress|ModifiedDate|DeptID",
+				"name": "EID",
+				"type": "String"
+			},
+			{
+				"name": "EName",
+				"type": "String"
+			},
+			{
+				"name": "ESalary",
+				"type": "String"
+			},
+			{
+				"name": "EAddress",
+				"type": "String"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "String"
+			},
+			{
+				"name": "DeptID",
 				"type": "String"
 			}
 		]
