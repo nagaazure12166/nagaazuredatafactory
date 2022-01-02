@@ -1,0 +1,39 @@
+{
+	"name": "DF_SplitSource",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADLS_Source",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADLS_Destination",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_ADLS_Destination",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				}
+			],
+			"transformations": [
+				{
+					"name": "ConditionalSplit1"
+				}
+			],
+			"script": "source(output(\n\t\tEID as string,\n\t\tEName as string,\n\t\tESalary as string,\n\t\tEAddress as string,\n\t\tModifiedDate as string,\n\t\tDeptID as string,\n\t\tinsert_date as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> source1\nsource1 split(equals(EAddress, 'Hyd'),\n\tequals(EAddress, 'Pune'),\n\tdisjoint: false) ~> ConditionalSplit1@(HydSplit, PuneSplit, Default)\nConditionalSplit1@HydSplit sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tEID as string,\n\t\tEName as string,\n\t\tESalary as string,\n\t\tEAddress as string,\n\t\tModifiedDate as string,\n\t\tDeptID as string,\n\t\tinsert_date as string\n\t),\n\tpartitionFileNames:['HydSplitEmp.txt'],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink1\nConditionalSplit1@PuneSplit sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tEID as string,\n\t\tEName as string,\n\t\tESalary as string,\n\t\tEAddress as string,\n\t\tModifiedDate as string,\n\t\tDeptID as string,\n\t\tinsert_date as string\n\t),\n\tpartitionFileNames:['PuneSplitEmp.txt'],\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sink2"
+		}
+	}
+}
