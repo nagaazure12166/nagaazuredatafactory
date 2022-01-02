@@ -1,0 +1,37 @@
+{
+	"name": "DS_AZURESQLSERVER_EMP_DEPT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLSERVER_Cloud",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EID",
+				"type": "varchar"
+			},
+			{
+				"name": "EName",
+				"type": "varchar"
+			},
+			{
+				"name": "ESalary",
+				"type": "varchar"
+			},
+			{
+				"name": "EAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "DName",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EMP_DEPT"
+		}
+	}
+}

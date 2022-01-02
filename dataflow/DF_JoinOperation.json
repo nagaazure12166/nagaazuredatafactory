@@ -19,13 +19,24 @@
 					"name": "DEPTTAB"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_AZURESQLSERVER_EMP_DEPT",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "Join1"
+				},
+				{
+					"name": "Select1"
 				}
 			],
-			"script": "source(output(\n\t\tEID as string,\n\t\tEName as string,\n\t\tESalary as string,\n\t\tEAddress as string,\n\t\tDEPTNO as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> EMPTAB\nsource(output(\n\t\tDID as string,\n\t\tDName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DEPTTAB\nEMPTAB, DEPTTAB join(DEPTNO == DID,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> Join1"
+			"script": "source(output(\n\t\tEID as string,\n\t\tEName as string,\n\t\tESalary as string,\n\t\tEAddress as string,\n\t\tDEPTNO as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> EMPTAB\nsource(output(\n\t\tDID as string,\n\t\tDName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DEPTTAB\nEMPTAB, DEPTTAB join(DEPTNO == DID,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> Join1\nJoin1 select(mapColumn(\n\t\tEID,\n\t\tEName,\n\t\tESalary,\n\t\tEAddress,\n\t\tDName\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> Select1\nSelect1 sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tinput(\n\t\tEID as string,\n\t\tEName as string,\n\t\tESalary as string,\n\t\tEAddress as string,\n\t\tDName as string\n\t),\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sink1"
 		}
 	}
 }
