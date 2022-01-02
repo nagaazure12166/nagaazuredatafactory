@@ -23,9 +23,12 @@
 			"transformations": [
 				{
 					"name": "RefSelect"
+				},
+				{
+					"name": "Lookup1"
 				}
 			],
-			"script": "source(output(\n\t\tEID as short,\n\t\tEName as string,\n\t\tESalary as short,\n\t\tEAddress as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> ADLSSOURCE\nsource(output(\n\t\tID as string,\n\t\tEName as string,\n\t\tSalary as string,\n\t\tAddress as string,\n\t\tInsert_date as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DesRef\nDesRef select(mapColumn(\n\t\tID\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> RefSelect"
+			"script": "source(output(\n\t\tEID as short,\n\t\tEName as string,\n\t\tESalary as short,\n\t\tEAddress as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> ADLSSOURCE\nsource(output(\n\t\tID as string,\n\t\tEName as string,\n\t\tSalary as string,\n\t\tAddress as string,\n\t\tInsert_date as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DesRef\nDesRef select(mapColumn(\n\t\tID\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> RefSelect\nADLSSOURCE, RefSelect lookup(EID == ID,\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> Lookup1"
 		}
 	}
 }
