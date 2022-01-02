@@ -1,0 +1,25 @@
+{
+	"name": "DS_Onpremise_DEPTTAB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLServer_OnPremise",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "DID",
+				"type": "varchar"
+			},
+			{
+				"name": "DName",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DEPTTAB"
+		}
+	}
+}

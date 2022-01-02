@@ -1,0 +1,27 @@
+{
+	"name": "DF_JoinOperation",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_OnPremise_EMPTABLE",
+						"type": "DatasetReference"
+					},
+					"name": "EMPTAB"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Onpremise_DEPTTAB",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"script": "source(output(\n\t\tEID as string,\n\t\tEName as string,\n\t\tESalary as string,\n\t\tEAddress as string,\n\t\tDEPTNO as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> EMPTAB\nsource(output(\n\t\tDID as string,\n\t\tDName as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> source1"
+		}
+	}
+}
