@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "DS_OnPremise_EMPTABLE",
+						"referenceName": "DS_AzureSQLServer_EMPTAB",
 						"type": "DatasetReference"
 					},
 					"name": "EMPTAB"

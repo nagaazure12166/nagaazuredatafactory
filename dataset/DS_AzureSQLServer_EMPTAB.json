@@ -1,0 +1,37 @@
+{
+	"name": "DS_AzureSQLServer_EMPTAB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLSERVER_Cloud",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EID",
+				"type": "varchar"
+			},
+			{
+				"name": "EName",
+				"type": "varchar"
+			},
+			{
+				"name": "ESalary",
+				"type": "varchar"
+			},
+			{
+				"name": "EAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "DEPTNO",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EMPTAB"
+		}
+	}
+}
