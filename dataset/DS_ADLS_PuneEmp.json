@@ -1,0 +1,28 @@
+{
+	"name": "DS_ADLS_PuneEmp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_nagaadlsgen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "EMP_Pune.txt",
+				"fileSystem": "raw"
+			},
+			"columnDelimiter": "|",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "EID|EName|ESalary|EAddress|ModifiedDate|DeptID",
+				"type": "String"
+			}
+		]
+	}
+}
