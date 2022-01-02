@@ -1,0 +1,37 @@
+{
+	"name": "DS_OnPremise_EMPTABLE",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLServer_OnPremise",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SqlServerTable",
+		"schema": [
+			{
+				"name": "EID",
+				"type": "varchar"
+			},
+			{
+				"name": "EName",
+				"type": "varchar"
+			},
+			{
+				"name": "ESalary",
+				"type": "varchar"
+			},
+			{
+				"name": "EAddress",
+				"type": "varchar"
+			},
+			{
+				"name": "DEPTNO",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "EMPTAB"
+		}
+	}
+}
