@@ -1,0 +1,31 @@
+{
+	"name": "DF_Incremental",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_ADLS_ALL",
+						"type": "DatasetReference"
+					},
+					"name": "ADLSSOURCE"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_AzureSqlServer_Final_Emp",
+						"type": "DatasetReference"
+					},
+					"name": "DesRef"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "RefSelect"
+				}
+			],
+			"script": "source(output(\n\t\tEID as short,\n\t\tEName as string,\n\t\tESalary as short,\n\t\tEAddress as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> ADLSSOURCE\nsource(output(\n\t\tID as string,\n\t\tEName as string,\n\t\tSalary as string,\n\t\tAddress as string,\n\t\tInsert_date as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> DesRef\nDesRef select(mapColumn(\n\t\tID\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> RefSelect"
+		}
+	}
+}
