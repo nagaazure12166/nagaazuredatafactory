@@ -1,0 +1,52 @@
+{
+	"name": "DS_ADLS_Source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ADLS_nagaadlsgen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "MergeEmp.txt",
+				"fileSystem": "source"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "EID",
+				"type": "String"
+			},
+			{
+				"name": "EName",
+				"type": "String"
+			},
+			{
+				"name": "ESalary",
+				"type": "String"
+			},
+			{
+				"name": "EAddress",
+				"type": "String"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "String"
+			},
+			{
+				"name": "DeptID",
+				"type": "String"
+			},
+			{
+				"name": "insert_date",
+				"type": "String"
+			}
+		]
+	}
+}
