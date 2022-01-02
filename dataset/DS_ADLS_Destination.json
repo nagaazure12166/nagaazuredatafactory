@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "MergeEmp.txt",
 				"fileSystem": "destination"
 			},
 			"columnDelimiter": ",",
@@ -17,6 +18,35 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "EID",
+				"type": "String"
+			},
+			{
+				"name": "EName",
+				"type": "String"
+			},
+			{
+				"name": "ESalary",
+				"type": "String"
+			},
+			{
+				"name": "EAddress",
+				"type": "String"
+			},
+			{
+				"name": "ModifiedDate",
+				"type": "String"
+			},
+			{
+				"name": "DeptID",
+				"type": "String"
+			},
+			{
+				"name": "insert_date",
+				"type": "String"
+			}
+		]
 	}
 }
