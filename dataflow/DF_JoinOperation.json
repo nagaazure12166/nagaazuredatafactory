@@ -13,7 +13,7 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "DS_Onpremise_DEPTTAB",
+						"referenceName": "DS_AzureSQLSERVER_DEPTTAB",
 						"type": "DatasetReference"
 					},
 					"name": "DEPTTAB"

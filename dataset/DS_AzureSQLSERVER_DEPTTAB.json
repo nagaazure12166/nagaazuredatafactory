@@ -1,0 +1,25 @@
+{
+	"name": "DS_AzureSQLSERVER_DEPTTAB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_SQLSERVER_Cloud",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "DID",
+				"type": "varchar"
+			},
+			{
+				"name": "DName",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DEPTTAB"
+		}
+	}
+}
